@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+}
+
+.page {
+  width: 35px;
+  height: 35px;
+  /* border: 1px solid burlywood; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.page:hover {
+  background-color: #d63d00;
+  color: white;
+}
+
+.selectedPage {
+  background-color: #d63d00;
+  color: white;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+td {
+  padding: 20px;
+}
+
+thead {
+  background-color: #c8cdd9;
+  color: #555d71;
+}
+
+table {
+  border: none;
+  border-collapse: collapse;
+}

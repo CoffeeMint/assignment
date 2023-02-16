@@ -1,8 +1,14 @@
+import { Provider } from "react-redux";
+import AttendeesTableContainer from "./modules/attendees/containers";
+import { store } from "./store";
+
 function App() {
   return (
-    <div className="App">
-     
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <AttendeesTableContainer />
+      </div>
+    </Provider>
   );
 }
 
