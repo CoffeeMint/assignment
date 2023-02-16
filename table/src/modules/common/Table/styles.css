@@ -37,6 +37,7 @@ td {
 thead {
   background-color: #c8cdd9;
   color: #555d71;
+  cursor: pointer;
 }
 
 table {
