@@ -28,7 +28,7 @@ const TablePagination = ({
             key={page}
             onClick={() => setPage(page)}
           >
-            {page}
+            {page + 1}
           </div>
         );
       })}

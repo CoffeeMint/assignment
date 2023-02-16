@@ -10,6 +10,9 @@ import {
   setCurrentPage,
   setSorting,
   getAttendeesRequest,
+  handleEdit,
+  handleSave,
+  handleDelete,
 } from "../slice";
 import { IPerson } from "../types";
 import { getTableColumns } from "../utils/tableUtils";
@@ -40,15 +43,36 @@ const AttendeesTableContainer = () => {
     [dispatch]
   );
 
+  const handleEditClick = useCallback(
+    (item: IPerson) => {
+      dispatch(handleEdit(item));
+    },
+    [dispatch]
+  );
+
+  const handleSaveClick = useCallback(
+    (item: IPerson) => {
+      dispatch(handleSave(item));
+    },
+    [dispatch]
+  );
+
+  const handleDeleteClick = useCallback(
+    (id: string) => {
+      dispatch(handleDelete(id));
+    },
+    [dispatch]
+  );
+
   const tableProps: ITable<IPerson, keyof IPerson> = useMemo(
     () => ({
-      columns: getTableColumns(),
+      columns: getTableColumns(handleDeleteClick),
       data,
       pagination: { ...pagination, setPage: handleSetCurrentPage },
       sortingConfig: { ...sorting, setSorting: handleSetSorting },
       handleDeleteClick: () => {},
-      handleEditClick: () => {},
-      handleSaveClick: () => {},
+      handleEditClick,
+      handleSaveClick,
       isEditMode,
     }),
     [
@@ -58,6 +82,9 @@ const AttendeesTableContainer = () => {
       handleSetCurrentPage,
       handleSetSorting,
       isEditMode,
+      handleEditClick,
+      handleSaveClick,
+      handleDeleteClick,
     ]
   );
   console.log(pagination);

@@ -3,6 +3,7 @@ import { SortingDirection } from "../consts";
 export interface ITableColumn<T, K extends keyof T> {
   label: string;
   key: K;
+  render?: (item: T) => React.ReactElement;
 }
 
 export interface ISort<K extends string> {
@@ -29,7 +30,7 @@ interface ITableConfig<T, K extends keyof T & string> {
   sortingConfig?: ISortingConfig<K>;
   handleEditClick: (item: T) => void;
   handleDeleteClick: (item: T) => void;
-  handleSaveClick: () => void;
+  handleSaveClick: (item: T) => void;
 }
 
 export interface ITableRow<T, K extends keyof T & string>
@@ -41,4 +42,9 @@ export interface ITable<T, K extends keyof T & string>
   extends ITableConfig<T, K> {
   data: T[];
   pagination: ITablePagination;
+}
+
+export interface ITableAction<T> {
+  label: string;
+  handler: (item: T) => void;
 }

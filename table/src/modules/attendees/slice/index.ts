@@ -11,6 +11,7 @@ interface AttendeesTableState {
   sortingConfig: ISort<keyof IPerson & string>;
   paginationConfig: IPaginationConfig | null;
   isEditMode: boolean;
+  editItem: IPerson | null;
 }
 
 const initialState: AttendeesTableState = {
@@ -18,6 +19,7 @@ const initialState: AttendeesTableState = {
   sortingConfig: {},
   paginationConfig: null,
   isEditMode: false,
+  editItem: null,
 };
 
 export const attendeesTableSlice = createSlice({
@@ -51,11 +53,36 @@ export const attendeesTableSlice = createSlice({
         };
       }
     },
+    handleEdit: (state, action: PayloadAction<IPerson>) => {
+      state.isEditMode = true;
+      state.editItem = action.payload;
+    },
+    handleSave: (state, action: PayloadAction<IPerson>) => {
+      state.data = state.data.map((item) => {
+        if (item.id === action.payload.id) {
+          return action.payload;
+        }
+
+        return item;
+      });
+
+      state.isEditMode = false;
+      state.editItem = null;
+    },
+    handleDelete: (state, action: PayloadAction<string>) => {
+      state.data = state.data.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
-export const { getAttendeesRequest, setCurrentPage, setSorting } =
-  attendeesTableSlice.actions;
+export const {
+  getAttendeesRequest,
+  setCurrentPage,
+  setSorting,
+  handleEdit,
+  handleSave,
+  handleDelete,
+} = attendeesTableSlice.actions;
 
 export const selectAttendees = (state: RootState) => state.attendeesTable.data;
 

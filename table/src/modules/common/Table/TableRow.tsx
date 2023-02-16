@@ -4,15 +4,19 @@ import { ITableRow } from "./types";
 const TableRow = <T, K extends keyof T & string>({
   rowData,
   columns,
-  handleDeleteClick,
   handleEditClick,
   handleSaveClick,
   sortingConfig,
+  isEditMode,
 }: ITableRow<T, K>) => {
   return (
     <tr>
       {columns.map((column) => {
-        const { key } = column;
+        const { key, render } = column;
+
+        if (!!render) {
+          return <td key={key}>{render(rowData)}</td>;
+        }
 
         return (
           <td key={key}>
